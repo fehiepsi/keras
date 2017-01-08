@@ -54,7 +54,7 @@ def Xception(include_top=True, weights='imagenet',
             or "imagenet" (pre-training on ImageNet).
         input_tensor: optional Keras tensor (i.e. output of `layers.Input()`)
             to use as image input for the model.
-        inputs_shape: optional shape tuple, only to be specified
+        input_shape: optional shape tuple, only to be specified
             if `include_top` is False (otherwise the input shape
             has to be `(299, 299, 3)`.
             It should have exactly 3 inputs channels,
@@ -69,8 +69,8 @@ def Xception(include_top=True, weights='imagenet',
                          '`None` (random initialization) or `imagenet` '
                          '(pre-training on ImageNet).')
     if K.backend() != 'tensorflow':
-        raise Exception('The Xception model is only available with '
-                        'the TensorFlow backend.')
+        raise RuntimeError('The Xception model is only available with '
+                           'the TensorFlow backend.')
     if K.image_dim_ordering() != 'tf':
         warnings.warn('The Xception model is only available for the '
                       'input dimension ordering "tf" '
@@ -198,7 +198,7 @@ def Xception(include_top=True, weights='imagenet',
     else:
         inputs = img_input
     # Create model.
-    model = Model(inputs, x)
+    model = Model(inputs, x, name='xception')
 
     # load weights
     if weights == 'imagenet':
